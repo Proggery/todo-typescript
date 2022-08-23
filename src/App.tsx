@@ -1,26 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { FC, ChangeEvent, useState } from "react";
+import "./App.css";
+import TodoForm from "./Components/TodoForm";
+import TodoTask from "./Components/TodoTask";
+import { ITASK } from "./Interfaces";
 
-function App() {
+const App: FC = () => {
+  const [todoList, setTodoList] = useState<ITASK[]>([]);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+      <header>
+        <TodoForm todoList={todoList} setTodoList={setTodoList} />
       </header>
+      <main>
+        {todoList.map((task: ITASK, key: number) => (
+          <TodoTask
+            key={key}
+            task={task}
+            todoList={todoList}
+            setTodoList={setTodoList}
+          />
+        ))}
+      </main>
     </div>
   );
-}
+};
 
 export default App;
